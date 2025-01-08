@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NezienRestaurant1.Controls.SaveMenuItemFormControl"
+             x:Name="this"
+             xmlns:models="clr-namespace:NezienRestaurant1.Models"
+             xmlns:controls="clr-namespace:NezienRestaurant1.Controls">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry" x:Key="txt">
+                <Setter Property="BackgroundColor" Value=" Wheat"/>
+                <Setter Property="PlaceholderColor" Value="Black"/>
+            </Style>
+            <Style TargetType="Label" x:Key="lbl">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ScrollView BindingContext="{x:Reference this}">
+        <VerticalStackLayout Spacing="10">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Name" Style="{StaticResource lbl}"/>
+                <Entry Text="{Binding Item.Name}" Placeholder="Enter name" Style="{StaticResource txt}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Image/Icon" Style="{StaticResource lbl}"/>
+                <Border 
+                    BackgroundColor="Wheat" 
+                    HeightRequest="100" 
+                    WidthRequest="100" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    StrokeThickness="0">
+                    <Image 
+                        x:Name="itemIcon"
+                        Source="image_add_regular_36.png" 
+                        HeightRequest="35" 
+                        WidthRequest="35" 
+                        Aspect="AspectFit"
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center"/>
+                </Border>
+                <Button 
+                    Text="Select Image" 
+                    HorizontalOptions="Center" 
+                    BackgroundColor="DarkOliveGreen" 
+                    MinimumHeightRequest="25" 
+                    Margin="0, 5, 0, 0"
+                    Clicked="SelectImageButton_Clicked"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Price" Style="{StaticResource lbl}"/>
+                <Entry Text="{Binding Item.Price}" Placeholder="Enter price" Style="{StaticResource txt}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Description" Style="{StaticResource lbl}"/>
+                <Editor Text="{Binding Item.Description}" Placeholder="Enter description" Style="{StaticResource txt}" MinimumHeightRequest="100"/> 
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Categories" 
+                       Style="{StaticResource lbl}"/>
+                <CollectionView ItemsSource="{Binding Item.Categories}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical" Span="3"
+                            VerticalItemSpacing="3" 
+                            HorizontalItemSpacing="3"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:MenuCategoryModel">
+                            <Border BackgroundColor="Wheat" 
+                                    StrokeShape="RoundRectangle 10" 
+                                    HeightRequest="40">
+                                <Label Text="{Binding Name}" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger 
+                                            TargetType="Label" 
+                                            Binding="{Binding IsSelected}" 
+                                            Value="True">
+                                            <Setter Property="TextColor" Value="White"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="Maroon"/>
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type controls:SaveMenuItemFormControl}},Path=ToggleCategorySelectionCommand}"
+                                                          CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+            <Grid ColumnDefinitions="*, *">
+                <Button 
+                    Grid.Column="0" 
+                    Text="Cancel" 
+                    BackgroundColor="Red"
+                    HorizontalOptions="Start" 
+                    Command="{Binding CancelCommand}"/>
+                <Button 
+                    Grid.Column="1" 
+                    Text="Save" 
+                    BackgroundColor="DarkOliveGreen" 
+                    Command="{Binding SaveMenuItemCommand}"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>

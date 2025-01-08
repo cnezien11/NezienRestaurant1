@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NezienRestaurant1.Pages.ManageMenuItemPage"
+             xmlns:controls="clr-namespace:NezienRestaurant1.Controls"
+             xmlns:vm="clr-namespace:NezienRestaurant1.ViewModels"
+             xmlns:data="clr-namespace:NezienRestaurant1.Data"
+             xmlns:models="clr-namespace:NezienRestaurant1.Models"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:ManageMenuItemsViewModel">
+    
+    <Grid ColumnDefinitions=".75*, .25*">
+        <Grid 
+          Grid.Column="0"
+            RowDefinitions="Auto, Auto, *" 
+          RowSpacing="15"
+          Padding="15">
+            <Label 
+              Grid.Row="0" Text="Manage Menu Items"
+                 FontSize="20"
+                 FontAttributes="Bold"/>
+            <controls:CategoriesListControl Grid.Row="1" Categories="{Binding Categories}" OnCategorySelected="CategoriesListControl_OnCategorySelected"/>
+            <Grid Grid.Row="2" >
+                <controls:MenuItemsListControl 
+                    Items="{Binding MenuItems}" 
+                    OnSelectItem="MenuItemsListControl_OnSelectItem" 
+                    IsEditCase="True"/>
+                <BoxView 
+                  IsVisible="{Binding IsLoading}"
+                  HorizontalOptions="Fill"
+                  VerticalOptions="Fill" 
+                  Color="{StaticResource LightWheat}" 
+                  Opacity="0.5"/>
+                <ActivityIndicator 
+                    IsRunning="{Binding IsLoading}"
+                    HeightRequest="25"
+                    WidthRequest="25"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Color="Maroon"/>
+            </Grid>
+        </Grid>
+        <Grid 
+            Grid.Column="1" 
+            BackgroundColor="{StaticResource LightWheat}"
+            RowDefinitions="Auto, *"
+            Padding="0,10">
+            <VerticalStackLayout 
+              Grid.Row="0" 
+              Spacing="5" 
+              Padding="10, 0">
+                <Label 
+                  Text="Save Items" 
+                  FontSize="25" 
+                  FontAttributes="Bold"/>
+                <controls:CurrentDateTimeControl/>
+            </VerticalStackLayout>
+            <Grid  
+              Grid.Row="1" 
+              Padding="0, 10"
+              BackgroundColor="{StaticResource LightWheat}">
+                <controls:SaveMenuItemFormControl 
+                    Item="{Binding MenuItem}" 
+                    OnCancel="SaveMenuItemFormControl_OnCancel" 
+                    OnSaveItem="SaveMenuItemFormControl_OnSaveItem"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

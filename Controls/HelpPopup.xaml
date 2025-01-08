@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="NezienRestaurant1.Controls.HelpPopup"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="this"
+    xmlns:controls="clr-namespace:NezienRestaurant1.Controls">
+    
+    
+    <Border 
+        BackgroundColor="Wheat" 
+        StrokeShape="RoundRectangle 10" 
+        Stroke="Maroon">
+        <VerticalStackLayout>
+            <Grid 
+                ColumnDefinitions="*, Auto" 
+                BackgroundColor="Maroon" Padding="15, 8">
+                <Label 
+                    Grid.Column="0" 
+                    Text="Need Help?" 
+                    TextColor="White"
+                    FontSize="18"/>
+
+                <Label 
+                    Grid.Column="1" 
+                    Text="X" 
+                    HorizontalTextAlignment="Center" 
+                    VerticalTextAlignment="Center" 
+                    TextColor="White" 
+                    FontAttributes="Bold" 
+                    FontSize="16"
+                    WidthRequest="25"
+                    HeightRequest="25" 
+                    BackgroundColor="Red">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CloseLabel_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+            <VerticalStackLayout Spacing="10" Padding="15">
+                <Image 
+                    Source="phone_regular_24.png" 
+                    HeightRequest="25" 
+                    WidthRequest="25" 
+                    HorizontalOptions="Center"/>
+                <Label 
+                    Text="You can connect with us!" 
+                    HorizontalOptions="Center" FontSize="15"/>
+                <HorizontalStackLayout Spacing="5">
+                    <Label 
+                        Text="Email us at" 
+                        FontSize="15" 
+                        VerticalOptions="Center"/>
+                    <Label 
+                        Text="{x:Static controls:HelpPopup.Email}" 
+                        FontSize="15" 
+                        FontAttributes="Bold" 
+                        TextDecorations="Underline" 
+                        VerticalOptions="Center"/>
+                    <Label 
+                        x:Name="copyEmailLabel"
+                        Text="Copy to Clipboard" 
+                        BackgroundColor="Yellow" 
+                        Padding="8, 2" 
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CopyEmail_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="5">
+                    <Label 
+                        Text="Call us at" 
+                        FontSize="15" 
+                        VerticalOptions="Center"/>
+                    <Label 
+                        Text="{x:Static controls:HelpPopup.Phone}" 
+                        FontSize="15" 
+                        FontAttributes="Bold" 
+                        TextDecorations="Underline" 
+                        VerticalOptions="Center"/>
+                    <Label 
+                        x:Name="copyPhonelLabel"
+                        Text="Copy to Clipboard" 
+                        BackgroundColor="Yellow" 
+                        Padding="8, 2" 
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CopyPhone_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

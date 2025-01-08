@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="NezienRestaurant1.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:NezienRestaurant1"
+    Shell.FlyoutBehavior="Locked"
+    xmlns:pages="clr-namespace:NezienRestaurant1.Pages"
+    Title="NezienRestaurant1"
+    Shell.FlyoutWidth="70"
+    Shell.FlyoutBackgroundColor="Wheat">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate pages:MainPage}"
+        Icon="home_regular_24.png"
+        Route="MainPage"/>
+    <ShellContent
+        Title="Orders"
+        Icon="list_ul_regular_24.png"
+        ContentTemplate="{DataTemplate pages:OrdersPage}"
+        Route="OrdersPage"/>
+
+    <ShellContent
+        Title="Manage Menu Item"
+        Icon="grid_alt_regular_24.png"
+        ContentTemplate="{DataTemplate pages:ManageMenuItemPage}"
+        Route="ManageMenuItemPage"/>
+
+    <Shell.FlyoutFooter>
+        <Image 
+               Source="phone_regular_24.png"
+               HeightRequest="40"
+               WidthRequest="40"
+               Margin="0, 0, 0, 25"
+               HorizontalOptions="Center"
+               Aspect="AspectFit">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </Image.GestureRecognizers>
+        </Image>
+    </Shell.FlyoutFooter>
+
+</Shell>
